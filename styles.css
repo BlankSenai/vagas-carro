@@ -134,3 +134,65 @@ main {
 .form-btn:active {
     transform: scale(0.9);
 }
+
+.infos-container {
+    width: 90%;
+    height: 90%;
+    background-color: #ccc;
+    padding: 50px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    filter: drop-shadow(0px 0px 5px #555);
+}
+
+.infos-container > h1 {
+    font-size: 40px;
+}
+
+.reserved-spaces-container, .free-spaces-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.free-space {
+    text-align: center;
+    margin: 5px;
+    background-color: #bbb;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 10px;
+    transition: 0.2s;
+    filter: drop-shadow(0px 0px 2px #555);
+}
+
+.free-space:hover {
+    background-color: #aaa;
+    transform: scale(1.05);
+}
+
+.reserved-space {
+    background-color: #bbb;
+    margin: 5px;
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;
+    border-radius: 10px;
+    transition: 0.2s;
+    filter: drop-shadow(0px 0px 2px #555);
+}
+
+.reserved-space:hover {
+    transform: scale(1.05);
+    background-color: #aaa;
+}
+
+.line {
+    background-color: #aaa;
+    width: 80%;
+    height: 3px;
+}
