@@ -18,14 +18,34 @@
         <div class="options-container">
             <a class="option" href="index.html">Início</a>
 
-            <a class="option selected" href="vaga.html">Reservar vaga</a>
+            <a class="option selected" href="vaga.html">Reservar Vaga</a>
 
             <a class="option" href="veiculo.html">Cadastrar Veículo</a>
         </div>
     </nav>
 
     <main>
-        
+        <form class="form">
+            <div class="title-container">
+                <h1>Reservar Vaga</h1>
+            </div>
+
+            <div class="inputs-container">
+                <label for="spaceLicensePlateInput">Placa do veículo:</label>
+                <input type="text" class="input" id="spaceLicensePlateInput">
+    
+                <label for="apNumberInput">Número do apartamento:</label>
+                <input type="number" class="input" id="apNumberInput">
+    
+                <label for="apBlockInput">Bloco do apartamento:</label>
+                <input type="text" class="input" id="apBlockInput">
+    
+                <label for="spaceNumberInput">Número da vaga:</label>
+                <input type="number" class="input" id="spaceNumberInput">
+            </div>
+
+            <button class="form-btn" id="reserveSpaceBtn">Reservar</button>
+        </form>
     </main>
 
     <script src="index.js"></script>

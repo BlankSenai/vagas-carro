@@ -18,14 +18,34 @@
         <div class="options-container">
             <a class="option" href="index.html">Início</a>
 
-            <a class="option" href="vaga.html">Reservar vaga</a>
+            <a class="option" href="vaga.html">Reservar Vaga</a>
 
             <a class="option selected" href="veiculo.html">Cadastrar Veículo</a>
         </div>
     </nav>
 
     <main>
-        
+        <form class="form">
+            <div class="title-container">
+                <h1>Cadastrar Veículo</h1>
+            </div>
+
+            <div class="inputs-container">
+                <label for="licensePlateInput">Placa do veículo:</label>
+                <input type="text" class="input" id="vehicleLicensePlateInput">
+    
+                <label for="ownerInput">Nome do proprietário:</label>
+                <input type="text" class="input" id="ownerInput">
+    
+                <label for="vehicleModelInput">Modelo do veículo:</label>
+                <input type="text" class="input" id="vehicleModelInput">
+    
+                <label for="vehicleColorInput">Cor do veículo:</label>
+                <input type="text" class="input" id="vehicleColorInput">
+            </div>
+
+            <button class="form-btn" id="registerVehicleBtn">Cadastrar</button>
+        </form>
     </main>
 
     <script src="index.js"></script>
