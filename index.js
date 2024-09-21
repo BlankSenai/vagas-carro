@@ -62,6 +62,34 @@ function loadInfo() {
       reservedSpacesContainer.appendChild(reservedSpaceDiv)
     })
   }
+
+  const vehiclesContainer = document.querySelector('.vehicles-container')
+
+  if (vehicles) {
+    vehicles.forEach((vehicle) => {
+      const vehicleDiv = document.createElement('div')
+      vehicleDiv.classList.add('vehicle')
+
+      const plateH2 = document.createElement('h2')
+      plateH2.textContent = vehicle.plate
+
+      const ownerP = document.createElement('p')
+      ownerP.textContent = vehicle.owner
+
+      const modelP = document.createElement('p')
+      modelP.textContent = vehicle.model
+
+      const colorP = document.createElement('p')
+      colorP.textContent = vehicle.color
+
+      vehicleDiv.appendChild(plateH2)
+      vehicleDiv.appendChild(ownerP)
+      vehicleDiv.appendChild(modelP)
+      vehicleDiv.appendChild(colorP)
+
+      vehiclesContainer.appendChild(vehicleDiv)
+    })
+  }
 }
 
 function loadFormData() {
@@ -74,8 +102,8 @@ function loadFormData() {
   } else {
     vehicles.forEach(vehicle => {
       const option = document.createElement('option')
-      option.text = vehicle.plate.toUpperCase()
-      option.value = vehicle.plate.toUpperCase()
+      option.text = vehicle.plate
+      option.value = vehicle.plate
 
       licensePlateSelect.appendChild(option)
     })
@@ -142,7 +170,7 @@ function registerVehicle() {
     alert('Preencha todos os campos.')
   } else {
     const vehicle = {
-      plate: plate.value,
+      plate: plate.value.toUpperCase(),
       owner: owner.value,
       model: model.value,
       color: color.value
