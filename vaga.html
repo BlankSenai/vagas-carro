@@ -2,55 +2,85 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venda de Carros</title>
-    <link rel="stylesheet" href="styles.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Condomínio - Reserva</title>
+	<link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
-    <nav class="navbar">
-        <div class="title-container">
-            <h1>Condomínio das Flores</h1>
-            <h2>Reserva de estacionamento</h2>
-        </div>
+<body onload="loadFormData()">
+	<nav class="navbar">
+		<div class="title-container">
+			<h1>Condomínio das Flores</h1>
+			<h2>Reserva de estacionamento</h2>
+		</div>
 
-        <div class="options-container">
-            <a class="option" href="index.html">Início</a>
+		<br>
+		
+		<div class="line"></div>
 
-            <a class="option selected" href="vaga.html">Reservar Vaga</a>
+		<div class="options-container">
+			<a class="option" href="index.html">Início</a>
 
-            <a class="option" href="veiculo.html">Cadastrar Veículo</a>
-        </div>
-    </nav>
+			<a class="option selected" href="vaga.html">Reservar Vaga</a>
 
-    <main>
-        <form class="form">
-            <div class="title-container">
-                <h1>Reservar Vaga</h1>
-            </div>
-            
-            <div class="line"></div>
+			<a class="option" href="veiculo.html">Cadastrar Veículo</a>
+		</div>
+	</nav>
 
-            <div class="inputs-container">
-                <label for="spaceLicensePlateInput">Placa do veículo:</label>
-                <input type="text" class="input" id="spaceLicensePlateInput">
-    
-                <label for="apNumberInput">Número do apartamento:</label>
-                <input type="number" class="input" id="apNumberInput">
-    
-                <label for="apBlockInput">Bloco do apartamento:</label>
-                <input type="text" class="input" id="apBlockInput">
-    
-                <label for="spaceNumberInput">Número da vaga:</label>
-                <input type="number" class="input" id="spaceNumberInput">
-            </div>
+	<main>
+		<div class="form">
+			<div class="title-container">
+				<h1>Reservar Vaga</h1>
+			</div>
 
-            <button class="form-btn" id="reserveSpaceBtn">Reservar</button>
-        </form>
-    </main>
+			<div class="line"></div>
 
-    <script src="vaga.js"></script>
+			<div class="inputs-container">
+				<label for="plate">Placa do veículo:</label>
+				<select class="input" name="plate" id="licensePlateSelect">
+					<option value="" selected disabled hidden></option>
+				</select>
+				
+				<label for="apartment">Número do apartamento:</label>
+				<select class="input" name="apartment" id="aptNumberSelect">
+					<option value="" selected disabled hidden></option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
+				
+				<label for="block">Bloco do apartamento:</label>
+				<select class="input" name="block" id="aptBlockSelect">
+					<option value="" selected disabled hidden></option>
+					<option value="A1">A1</option>
+					<option value="A2">A2</option>
+					<option value="A3">A3</option>
+					<option value="A4">A4</option>
+					<option value="B1">B1</option>
+					<option value="B2">B2</option>
+					<option value="B3">B3</option>
+					<option value="B4">B4</option>
+				</select>
+				
+				<label for="number">Número da vaga:</label>
+				<select class="input" name="number" id="spaceNumberSelect">
+					<option value="" selected disabled hidden></option>
+				</select>
+			</div>
+			
+			<button class="form-btn" onclick="reserveSpace()">Reservar</button>
+		</div>
+	</main>
+	
+	<script src="index.js"></script>
 </body>
 
 </html>

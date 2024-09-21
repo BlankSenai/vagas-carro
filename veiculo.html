@@ -2,55 +2,59 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venda de Carros</title>
-    <link rel="stylesheet" href="styles.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Condomínio - Veículo</title>
+	<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="title-container">
-            <h1>Condomínio das Flores</h1>
-            <h2>Reserva de estacionamento</h2>
-        </div>
+	<nav class="navbar">
+		<div class="title-container">
+			<h1>Condomínio das Flores</h1>
+			<h2>Reserva de estacionamento</h2>
+		</div>
 
-        <div class="options-container">
-            <a class="option" href="index.html">Início</a>
+		<br>
+		
+		<div class="line"></div>
 
-            <a class="option" href="vaga.html">Reservar Vaga</a>
+		<div class="options-container">
+			<a class="option" href="index.html">Início</a>
 
-            <a class="option selected" href="veiculo.html">Cadastrar Veículo</a>
-        </div>
-    </nav>
+			<a class="option" href="vaga.html">Reservar Vaga</a>
 
-    <main>
-        <form class="form">
-            <div class="title-container">
-                <h1>Cadastrar Veículo</h1>
-            </div>
-            
-            <div class="line"></div>
+			<a class="option selected" href="veiculo.html">Cadastrar Veículo</a>
+		</div>
+	</nav>
 
-            <div class="inputs-container">
-                <label for="licensePlateInput">Placa do veículo:</label>
-                <input type="text" class="input" id="vehicleLicensePlateInput">
-    
-                <label for="ownerInput">Nome do proprietário:</label>
-                <input type="text" class="input" id="ownerInput">
-    
-                <label for="vehicleModelInput">Modelo do veículo:</label>
-                <input type="text" class="input" id="vehicleModelInput">
-    
-                <label for="vehicleColorInput">Cor do veículo:</label>
-                <input type="text" class="input" id="vehicleColorInput">
-            </div>
+	<main>
+		<div class="form">
+			<div class="title-container">
+				<h1>Cadastrar Veículo</h1>
+			</div>
 
-            <button class="form-btn" id="registerVehicleBtn">Cadastrar</button>
-        </form>
-    </main>
+			<div class="line"></div>
 
-    <script src="veiculo.js"></script>
+			<div class="inputs-container">
+				<label for="licensePlateInput">Placa do veículo:</label>
+				<input type="text" class="input" id="licensePlateInput">
+
+				<label for="ownerInput">Nome do proprietário:</label>
+				<input type="text" class="input" id="ownerInput">
+
+				<label for="vehicleModelInput">Modelo do veículo:</label>
+				<input type="text" class="input" id="vehicleModelInput">
+
+				<label for="vehicleColorInput">Cor do veículo:</label>
+				<input type="text" class="input" id="vehicleColorInput">
+			</div>
+
+			<button class="form-btn" onclick="registerVehicle()">Cadastrar</button>
+		</div>
+	</main>
+
+	<script src="index.js"></script>
 </body>
 
 </html>

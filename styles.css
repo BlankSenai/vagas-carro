@@ -1,198 +1,198 @@
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 body {
-    height: 100vh;
-    width: 100%;
-    display: flex;
+	height: 100vh;
+	width: 100%;
+	display: flex;
 }
 
 .navbar {
-    background-color: #333;
-    height: 100%;
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    filter: drop-shadow(0px 0px 5px #333);
-    user-select: none;
+	background-color: #333;
+	height: 100%;
+	width: 20%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	filter: drop-shadow(0px 0px 5px #333);
+	user-select: none;
 }
 
 .navbar .title-container h1 {
-    color: #fff;
-    font-size: 30px;
-    text-align: center;
-    margin-top: 80px;
+	color: #fff;
+	font-size: 30px;
+	text-align: center;
+	margin-top: 80px;
 }
 
 .navbar .title-container h2 {
-    color: #fff;
-    font-size: 20px;
-    text-align: center;
-    margin-top: 22px;
-    font-weight: normal;
+	color: #fff;
+	font-size: 20px;
+	text-align: center;
+	margin-top: 22px;
+	font-weight: normal;
 }
 
 .options-container {
-    margin-top: 100px;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+	margin-top: 100px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 }
 
 .option {
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    color: #fff;
-    font-size: 18px;
-    transition: 0.2s;
+	height: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+	color: #fff;
+	font-size: 18px;
+	transition: 0.2s;
 }
 
 .option:hover {
-    background-color: #555;
+	background-color: #555;
 }
 
 .option:active {
-    background-color: #444;
+	background-color: #444;
 }
 
 .selected {
-    background-color: #555;
+	background-color: #555;
 }
 
 main {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	width: 80%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .form {
-    width: 70%;
-    height: 90%;
-    background-color: #ccc;
-    padding: 50px;
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    filter: drop-shadow(0px 0px 5px #555);
+	width: 70%;
+	height: 90%;
+	background-color: #ccc;
+	padding: 50px;
+	border-radius: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	filter: drop-shadow(0px 0px 5px #555);
 }
 
 .form .title-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .inputs-container {
-    width: 80%;
-    display: flex;
-    flex-direction: column;
+	width: 80%;
+	display: flex;
+	flex-direction: column;
 }
 
 .form h1 {
-    font-size: 40px;
+	font-size: 40px;
 }
 
 .form label {
-    font-size: 20px;
-    margin-top: 10px;
+	font-size: 20px;
+	margin-top: 10px;
 }
 
 .input {
-    font-size: 18px;
-    padding: 5px;
-    border-radius: 10px;
-    margin-top: 5px;
+	font-size: 18px;
+	padding: 5px;
+	border-radius: 10px;
+	margin-top: 5px;
+	border: solid 2px #333;
 }
 
 .form-btn {
-    font-size: 20px;
-    background-color: #aaa;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: 0.2s;
-    filter: drop-shadow(0px 0px 3px #555);
+	font-size: 20px;
+	background-color: #aaa;
+	border: none;
+	border-radius: 10px;
+	padding: 10px 20px;
+	cursor: pointer;
+	transition: 0.2s;
+	filter: drop-shadow(0px 0px 3px #555);
 }
 
 .form-btn:hover {
-    transform: scale(1.1);
+	transform: scale(1.05);
 }
 
 .form-btn:active {
-    transform: scale(0.9);
+	transform: scale(0.95);
 }
 
 .infos-container {
-    width: 90%;
-    height: 90%;
-    background-color: #ccc;
-    padding: 50px;
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    filter: drop-shadow(0px 0px 5px #555);
+	width: 90%;
+	height: 90%;
+	background-color: #ccc;
+	padding: 50px;
+	border-radius: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	filter: drop-shadow(0px 0px 5px #555);
 }
 
-.infos-container > h1 {
-    font-size: 40px;
+.infos-container>h1 {
+	font-size: 40px;
 }
 
-.reserved-spaces-container, .free-spaces-container {
-    width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+.reserved-spaces-container,
+.free-spaces-container {
+	width: 90%;
+	display: flex;
+	white-space: nowrap;
+	overflow-x: auto;
 }
 
 .free-space {
-    text-align: center;
-    margin: 5px;
-    background-color: #bbb;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 10px;
-    transition: 0.2s;
-    filter: drop-shadow(0px 0px 2px #555);
+	text-align: center;
+	margin: 5px;
+	background-color: #bbb;
+	padding: 10px;
+	border-radius: 10px;
+	font-size: 10px;
+	transition: 0.2s;
 }
 
 .free-space:hover {
-    background-color: #aaa;
-    transform: scale(1.05);
+	background-color: #aaa;
+	transform: scale(1.05);
 }
 
 .reserved-space {
-    background-color: #bbb;
-    margin: 5px;
-    padding: 10px;
-    font-size: 15px;
-    text-align: center;
-    border-radius: 10px;
-    transition: 0.2s;
-    filter: drop-shadow(0px 0px 2px #555);
+	background-color: #bbb;
+	margin: 5px;
+	padding: 10px;
+	font-size: 15px;
+	text-align: center;
+	border-radius: 10px;
+	transition: 0.2s;
 }
 
 .reserved-space:hover {
-    transform: scale(1.05);
-    background-color: #aaa;
+	transform: scale(1.05);
+	background-color: #aaa;
 }
 
 .line {
-    background-color: #aaa;
-    width: 80%;
-    height: 3px;
+	background-color: #aaa;
+	width: 80%;
+	height: 3px;
 }
