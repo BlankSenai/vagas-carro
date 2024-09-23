@@ -12,6 +12,31 @@ if (!freeSpaces) {
   localStorage.setItem('freeSpaces', JSON.stringify(freeSpaces))
 }
 
+function deleteData(element, id, type) {
+  for (const div of element.children) {
+    if (div.dataset.key === id) {
+      element.removeChild(div)
+
+      if (type === 'space') {
+        const filteredReservedSpaces = reservedSpaces.filter(reservedSpace => reservedSpace.id !== id)
+        const currentReservedSpace = reservedSpaces.filter(reservedSpace => reservedSpace.id === id)
+  
+        localStorage.setItem('reservedSpaces', JSON.stringify(filteredReservedSpaces))
+        
+        freeSpaces.unshift(currentReservedSpace[0].spaceNumber)
+  
+        localStorage.setItem('freeSpaces', JSON.stringify(freeSpaces))
+      } else if (type === 'vehicle') {
+        const filteredVehicles = vehicles.filter(vehicle => vehicle.id !== id)
+
+        localStorage.setItem('vehicles', JSON.stringify(filteredVehicles))
+      }
+
+      window.location.reload()
+    }
+  }
+}
+
 function loadInfo() {
   const freeSpacesContainer = document.querySelector('.free-spaces-container')
 
@@ -39,8 +64,8 @@ function loadInfo() {
   if (reservedSpaces) {
     reservedSpaces.forEach((space) => {
       const reservedSpaceDiv = document.createElement('div')
-
       reservedSpaceDiv.classList.add('reserved-space')
+      reservedSpaceDiv.dataset.key = space.id
 
       const spaceNumber = document.createElement('h1')
       spaceNumber.textContent = `Vaga ${space.spaceNumber}`
@@ -59,6 +84,22 @@ function loadInfo() {
       reservedSpaceDiv.appendChild(aptBlock)
       reservedSpaceDiv.appendChild(aptNumber)
 
+      const deleteBtn = document.createElement('span')
+      deleteBtn.classList.add('material-icons')
+      deleteBtn.textContent = 'delete'
+      deleteBtn.dataset.key = space.id
+
+      deleteBtn.addEventListener('click', () => {
+        deleteData(reservedSpacesContainer, deleteBtn.dataset.key, 'space')
+      })
+
+      const editBtn = document.createElement('span')
+      editBtn.classList.add('material-icons')
+      editBtn.textContent = 'edit'
+
+      reservedSpaceDiv.appendChild(deleteBtn)
+      reservedSpaceDiv.appendChild(editBtn)
+
       reservedSpacesContainer.appendChild(reservedSpaceDiv)
     })
   }
@@ -69,6 +110,7 @@ function loadInfo() {
     vehicles.forEach((vehicle) => {
       const vehicleDiv = document.createElement('div')
       vehicleDiv.classList.add('vehicle')
+      vehicleDiv.dataset.key = vehicle.id
 
       const plateH2 = document.createElement('h2')
       plateH2.textContent = vehicle.plate
@@ -87,6 +129,22 @@ function loadInfo() {
       vehicleDiv.appendChild(modelP)
       vehicleDiv.appendChild(colorP)
 
+      const deleteBtn = document.createElement('span')
+      deleteBtn.classList.add('material-icons')
+      deleteBtn.textContent = 'delete'
+      deleteBtn.dataset.key = vehicle.id
+
+      deleteBtn.addEventListener('click', () => {
+        deleteData(vehiclesContainer, deleteBtn.dataset.key, 'vehicle')
+      })
+
+      const editBtn = document.createElement('span')
+      editBtn.classList.add('material-icons')
+      editBtn.textContent = 'edit'
+
+      vehicleDiv.appendChild(deleteBtn)
+      vehicleDiv.appendChild(editBtn)
+
       vehiclesContainer.appendChild(vehicleDiv)
     })
   }
@@ -95,7 +153,7 @@ function loadInfo() {
 function loadFormData() {
   const licensePlateSelect = document.querySelector('#licensePlateSelect')
 
-  if (!vehicles) {
+  if (!vehicles || vehicles.length === 0) {
     licensePlateSelect.addEventListener('mousedown', () => {
       alert('Nenhum veículo foi cadastrado.')
     })
@@ -129,7 +187,10 @@ function reserveSpace() {
   if (!plate.value || !aptNumber.value || !aptBlock.value || !spaceNumber.value) {
     alert('Preencha todos os campos.')
   } else {
+    const id = crypto.randomUUID()
+
     const reservedSpace = {
+      id: id,
       plate: plate.value,
       aptNumber: aptNumber.value,
       aptBlock: aptBlock.value,
@@ -169,7 +230,10 @@ function registerVehicle() {
   if (!plate.value || !owner.value || !model.value || !color.value) {
     alert('Preencha todos os campos.')
   } else {
+    const id = crypto.randomUUID()
+
     const vehicle = {
+      id: id,
       plate: plate.value.toUpperCase(),
       owner: owner.value,
       model: model.value,

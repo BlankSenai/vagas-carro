@@ -238,3 +238,18 @@ main {
 	width: 90%;
 	height: 3px;
 }
+
+.material-icons {
+	margin-top: 10px;
+	cursor: pointer;
+	transition: 0.2s;
+	user-select: none;
+}
+
+.material-icons:hover {
+	transform: scale(1.2);
+}
+
+.material-icons:active {
+	transform: scale(0.8);
+}
