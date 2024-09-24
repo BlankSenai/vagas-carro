@@ -12,6 +12,150 @@ if (!freeSpaces) {
   localStorage.setItem('freeSpaces', JSON.stringify(freeSpaces))
 }
 
+function editData(element, id, type) {
+  const overlay = document.querySelector('.overlay')
+  const modal = document.querySelector('.modal')
+
+  overlay.style.display = 'flex'
+  modal.style.display = 'flex'
+  
+  modal.classList.add('zoom-in')
+  
+  if (type === 'space') {
+    
+    // const plateLabel = document.createElement('label')
+    // plateLabel.textContent = 'Placa do veículo:'
+    // const plateInput = document.createElement('input')
+    // plateInput.classList.add('input')
+    
+    // modal.appendChild(plateLabel)
+    // modal.appendChild(plateInput)
+    
+    // const aptNumberLabel = document.createElement('label')
+    // aptNumberLabel.textContent = 'Número do apartamento:'
+    // const aptNumberInput = document.createElement('input')
+    // aptNumberInput.classList.add('input')
+    
+    // modal.appendChild(aptNumberLabel)
+    // modal.appendChild(aptNumberInput)
+    
+    // const aptBlockLabel = document.createElement('label')
+    // aptBlockLabel.textContent = 'Bloco do apartamento:'
+    // const aptBlockInput = document.createElement('input')
+    // aptBlockInput.classList.add('input')
+    
+    // modal.appendChild(aptBlockLabel)
+    // modal.appendChild(aptBlockInput)
+    
+    // const spaceNumberLabel = document.createElement('label')
+    // spaceNumberLabel.textContent = 'Número do apartamento:'
+    // const spaceNumberInput = document.createElement('input')
+    // spaceNumberInput.classList.add('input')
+    
+    // modal.appendChild(spaceNumberLabel)
+    // modal.appendChild(spaceNumberInput)
+    
+    // const btnDiv = document.createElement('div')
+    
+    // const submitBtn = document.createElement('button')
+    // submitBtn.classList.add('form-btn')
+    // submitBtn.textContent = 'Confirmar'
+    
+    
+    // const cancelBtn = document.createElement('button')
+    // cancelBtn.classList.add('form-btn')
+    // cancelBtn.textContent = 'Cancelar'
+    
+    // cancelBtn.addEventListener('click', () => {
+      //   window.location.reload()
+      // })
+      
+      // btnDiv.appendChild(submitBtn)
+      // btnDiv.appendChild(cancelBtn)
+      
+      // modal.appendChild(btnDiv)
+  
+      deleteData(element, id, type)
+      
+      window.location.replace('vaga.html')
+      
+    } else if (type === 'vehicle') {
+    const plateLabel = document.createElement('label')
+    plateLabel.textContent = 'Placa do veículo:'
+    const plateInput = document.createElement('input')
+    plateInput.classList.add('input')
+    
+    modal.appendChild(plateLabel)
+    modal.appendChild(plateInput)
+
+    const ownerLabel = document.createElement('label')
+    ownerLabel.textContent = 'Proprietário:'
+    const ownerInput = document.createElement('input')
+    ownerInput.classList.add('input')
+    
+    modal.appendChild(ownerLabel)
+    modal.appendChild(ownerInput)
+
+    const modelLabel = document.createElement('label')
+    modelLabel.textContent = 'Modelo do veículo:'
+    const modelInput = document.createElement('input')
+    modelInput.classList.add('input')
+    
+    modal.appendChild(modelLabel)
+    modal.appendChild(modelInput)
+
+    const colorLabel = document.createElement('label')
+    colorLabel.textContent = 'Cor do veículo:'
+    const colorInput = document.createElement('input')
+    colorInput.classList.add('input')
+    
+    modal.appendChild(colorLabel)
+    modal.appendChild(colorInput)
+
+    const btnDiv = document.createElement('div')
+
+    const submitBtn = document.createElement('button')
+    submitBtn.classList.add('form-btn')
+    submitBtn.textContent = 'Confirmar'
+    
+    submitBtn.addEventListener('click', () => {
+      if (!plateInput.value || !ownerInput.value || !modelInput.value || !colorInput.value) {
+        alert('Preencha todos os campos.')
+      } else {
+        const selectedVehicle = vehicles.filter(vehicle => vehicle.id === id)
+        
+        const editedVehicle = {
+          id: id,
+          plate: plateInput.value,
+          owner: ownerInput.value,
+          model: modelInput.value,
+          color:  colorInput.value
+        } 
+
+        vehicles.splice(vehicles.indexOf(selectedVehicle), 1, editedVehicle)
+
+        localStorage.setItem('vehicles', JSON.stringify(vehicles))
+
+        window.location.reload()
+
+      }
+    })
+
+    const cancelBtn = document.createElement('button')
+    cancelBtn.classList.add('form-btn')
+    cancelBtn.textContent = 'Cancelar'
+    
+    cancelBtn.addEventListener('click', () => {
+      window.location.reload()
+    })
+
+    btnDiv.appendChild(submitBtn)
+    btnDiv.appendChild(cancelBtn)
+
+    modal.appendChild(btnDiv)
+  }
+}
+
 function deleteData(element, id, type) {
   for (const div of element.children) {
     if (div.dataset.key === id) {
@@ -97,6 +241,10 @@ function loadInfo() {
       editBtn.classList.add('material-icons')
       editBtn.textContent = 'edit'
 
+      editBtn.addEventListener('click', () => {
+        editData(reservedSpacesContainer, space.id, 'space')
+      })
+
       reservedSpaceDiv.appendChild(deleteBtn)
       reservedSpaceDiv.appendChild(editBtn)
 
@@ -141,6 +289,10 @@ function loadInfo() {
       const editBtn = document.createElement('span')
       editBtn.classList.add('material-icons')
       editBtn.textContent = 'edit'
+
+      editBtn.addEventListener('click', () => {
+        editData(null, vehicle.id, 'vehicle')
+      })
 
       vehicleDiv.appendChild(deleteBtn)
       vehicleDiv.appendChild(editBtn)
