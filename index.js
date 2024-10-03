@@ -1,18 +1,32 @@
-const vehicles = JSON.parse(localStorage.getItem('vehicles'))
+const apiURL = 'http://localhost:3333'
 
-const reservedSpaces = JSON.parse(localStorage.getItem('reservedSpaces'))
+let vehicles = []
 
-const freeSpaces = JSON.parse(localStorage.getItem('freeSpaces'))
+fetch(`${apiURL}/vehicles`, {
+  method: 'GET',
+  headers: {
+    'content-type': 'application/json'
+  }
+})
+  .then(res => res.json())
+  .then(data => {
+      vehicles = data
+    })
 
-if (!freeSpaces) {
-  console.log('tava vazio e foi reposto')
+let spaces = []
 
-  const freeSpaces = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+fetch(`${apiURL}/spaces`, {
+  method: 'GET',
+  headers: {
+    'content-type': 'application/json'
+  }
+})
+  .then(res => res.json())
+  .then(data => {
+    spaces = data
+  })
 
-  localStorage.setItem('freeSpaces', JSON.stringify(freeSpaces))
-}
-
-function editData(element, id, type) {
+function editData(id, type) {
   const overlay = document.querySelector('.overlay')
   const modal = document.querySelector('.modal')
 
@@ -22,62 +36,57 @@ function editData(element, id, type) {
   modal.classList.add('zoom-in')
   
   if (type === 'space') {
+    const plateLabel = document.createElement('label')
+    plateLabel.textContent = 'Placa do veículo:'
+    const plateInput = document.createElement('input')
+    plateInput.classList.add('input')
     
-    // const plateLabel = document.createElement('label')
-    // plateLabel.textContent = 'Placa do veículo:'
-    // const plateInput = document.createElement('input')
-    // plateInput.classList.add('input')
+    modal.appendChild(plateLabel)
+    modal.appendChild(plateInput)
     
-    // modal.appendChild(plateLabel)
-    // modal.appendChild(plateInput)
+    const aptNumberLabel = document.createElement('label')
+    aptNumberLabel.textContent = 'Número do apartamento:'
+    const aptNumberInput = document.createElement('input')
+    aptNumberInput.classList.add('input')
     
-    // const aptNumberLabel = document.createElement('label')
-    // aptNumberLabel.textContent = 'Número do apartamento:'
-    // const aptNumberInput = document.createElement('input')
-    // aptNumberInput.classList.add('input')
+    modal.appendChild(aptNumberLabel)
+    modal.appendChild(aptNumberInput)
     
-    // modal.appendChild(aptNumberLabel)
-    // modal.appendChild(aptNumberInput)
+    const aptBlockLabel = document.createElement('label')
+    aptBlockLabel.textContent = 'Bloco do apartamento:'
+    const aptBlockInput = document.createElement('input')
+    aptBlockInput.classList.add('input')
     
-    // const aptBlockLabel = document.createElement('label')
-    // aptBlockLabel.textContent = 'Bloco do apartamento:'
-    // const aptBlockInput = document.createElement('input')
-    // aptBlockInput.classList.add('input')
+    modal.appendChild(aptBlockLabel)
+    modal.appendChild(aptBlockInput)
     
-    // modal.appendChild(aptBlockLabel)
-    // modal.appendChild(aptBlockInput)
+    const spaceNumberLabel = document.createElement('label')
+    spaceNumberLabel.textContent = 'Número do apartamento:'
+    const spaceNumberInput = document.createElement('input')
+    spaceNumberInput.classList.add('input')
     
-    // const spaceNumberLabel = document.createElement('label')
-    // spaceNumberLabel.textContent = 'Número do apartamento:'
-    // const spaceNumberInput = document.createElement('input')
-    // spaceNumberInput.classList.add('input')
+    modal.appendChild(spaceNumberLabel)
+    modal.appendChild(spaceNumberInput)
     
-    // modal.appendChild(spaceNumberLabel)
-    // modal.appendChild(spaceNumberInput)
+    const btnDiv = document.createElement('div')
     
-    // const btnDiv = document.createElement('div')
-    
-    // const submitBtn = document.createElement('button')
-    // submitBtn.classList.add('form-btn')
-    // submitBtn.textContent = 'Confirmar'
+    const submitBtn = document.createElement('button')
+    submitBtn.classList.add('form-btn')
+    submitBtn.textContent = 'Confirmar'
     
     
-    // const cancelBtn = document.createElement('button')
-    // cancelBtn.classList.add('form-btn')
-    // cancelBtn.textContent = 'Cancelar'
+    const cancelBtn = document.createElement('button')
+    cancelBtn.classList.add('form-btn')
+    cancelBtn.textContent = 'Cancelar'
     
-    // cancelBtn.addEventListener('click', () => {
-      //   window.location.reload()
-      // })
+    cancelBtn.addEventListener('click', () => {
+        window.location.reload()
+      })
       
-      // btnDiv.appendChild(submitBtn)
-      // btnDiv.appendChild(cancelBtn)
+      btnDiv.appendChild(submitBtn)
+      btnDiv.appendChild(cancelBtn)
       
-      // modal.appendChild(btnDiv)
-  
-      deleteData(element, id, type)
-      
-      window.location.replace('vaga.html')
+      modal.appendChild(btnDiv)
       
     } else if (type === 'vehicle') {
     const plateLabel = document.createElement('label')
@@ -122,19 +131,23 @@ function editData(element, id, type) {
       if (!plateInput.value || !ownerInput.value || !modelInput.value || !colorInput.value) {
         alert('Preencha todos os campos.')
       } else {
-        const selectedVehicle = vehicles.filter(vehicle => vehicle.id === id)
-        
-        const editedVehicle = {
-          id: id,
-          plate: plateInput.value,
-          owner: ownerInput.value,
-          model: modelInput.value,
-          color:  colorInput.value
+        const updatedData = {
+          vehicle: {
+            placa: plateInput.value,
+            dono: ownerInput.value,
+            modelo: modelInput.value,
+            cor:  colorInput.value
+          },
+          id: id
         } 
 
-        vehicles.splice(vehicles.indexOf(selectedVehicle), 1, editedVehicle)
-
-        localStorage.setItem('vehicles', JSON.stringify(vehicles))
+        fetch(`${apiURL}/vehicles`, {
+          method: 'PUT',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(updatedData)
+        })
 
         window.location.reload()
 
@@ -171,9 +184,17 @@ function deleteData(element, id, type) {
   
         localStorage.setItem('freeSpaces', JSON.stringify(freeSpaces))
       } else if (type === 'vehicle') {
-        const filteredVehicles = vehicles.filter(vehicle => vehicle.id !== id)
+        const deleteId = {
+          id: id
+        }
 
-        localStorage.setItem('vehicles', JSON.stringify(filteredVehicles))
+        fetch(`${apiURL}/vehicles`, {
+          method: 'DELETE',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(deleteId)
+        })
       }
 
       window.location.reload()
@@ -182,95 +203,109 @@ function deleteData(element, id, type) {
 }
 
 function loadInfo() {
-  const freeSpacesContainer = document.querySelector('.free-spaces-container')
+  
+  // if (freeSpaces) {
+    //   freeSpaces.forEach((space) => {
+      //     const freeSpaceDiv = document.createElement('div')
+      
+      //     freeSpaceDiv.classList.add('free-space')
+      
+      //     const spaceH1 = document.createElement('h1')
+      //     spaceH1.textContent = 'Vaga'
+      
+      //     const numberH1 = document.createElement('h1')
+      //     numberH1.textContent = space
+      
+      //     freeSpaceDiv.appendChild(spaceH1)
+      //     freeSpaceDiv.appendChild(numberH1)
+      
+      //     freeSpacesContainer.appendChild(freeSpaceDiv)
+      //   })
+      // }
+      
+      // const reservedSpacesContainer = document.querySelector('.reserved-spaces-container')
+      
+      // if (reservedSpaces) {
+        //   reservedSpaces.forEach((space) => {
+          //     const reservedSpaceDiv = document.createElement('div')
+          //     reservedSpaceDiv.classList.add('reserved-space')
+          //     reservedSpaceDiv.dataset.key = space.id
+          
+          //     const spaceNumber = document.createElement('h1')
+          //     spaceNumber.textContent = `Vaga ${space.spaceNumber}`
+          
+          //     const plate = document.createElement('p')
+          //     plate.textContent = `${space.plate}`
+          
+          //     const aptBlock = document.createElement('p')
+          //     aptBlock.textContent = `Bloco ${space.aptBlock}`
+          
+          //     const aptNumber = document.createElement('p')
+          //     aptNumber.textContent = `Apt. ${space.aptNumber}`
+          
+          //     reservedSpaceDiv.appendChild(spaceNumber)
+          //     reservedSpaceDiv.appendChild(plate)
+          //     reservedSpaceDiv.appendChild(aptBlock)
+          //     reservedSpaceDiv.appendChild(aptNumber)
+          
+          //     const deleteBtn = document.createElement('span')
+          //     deleteBtn.classList.add('material-icons')
+          //     deleteBtn.textContent = 'delete'
+          //     deleteBtn.dataset.key = space.id
+          
+          //     deleteBtn.addEventListener('click', () => {
+            //       deleteData(reservedSpacesContainer, deleteBtn.dataset.key, 'space')
+            //     })
+            
+            //     const editBtn = document.createElement('span')
+            //     editBtn.classList.add('material-icons')
+  //     editBtn.textContent = 'edit'
+  
+  //     editBtn.addEventListener('click', () => {
+    //       editData(space.id, 'space')
+    //     })
+    
+    //     reservedSpaceDiv.appendChild(deleteBtn)
+    //     reservedSpaceDiv.appendChild(editBtn)
+    
+    //     reservedSpacesContainer.appendChild(reservedSpaceDiv)
+    //   })
+    // }
+    
+    if (spaces) {
+      const spacesContainer = document.querySelector('.spaces-container')
+      
+      spaces.forEach((space) => {
+        
 
-  if (freeSpaces) {
-    freeSpaces.forEach((space) => {
-      const freeSpaceDiv = document.createElement('div')
+        if (space.status === 'livre') {
 
-      freeSpaceDiv.classList.add('free-space')
+        } else {
 
-      const spaceH1 = document.createElement('h1')
-      spaceH1.textContent = 'Vaga'
-
-      const numberH1 = document.createElement('h1')
-      numberH1.textContent = space
-
-      freeSpaceDiv.appendChild(spaceH1)
-      freeSpaceDiv.appendChild(numberH1)
-
-      freeSpacesContainer.appendChild(freeSpaceDiv)
-    })
-  }
-
-  const reservedSpacesContainer = document.querySelector('.reserved-spaces-container')
-
-  if (reservedSpaces) {
-    reservedSpaces.forEach((space) => {
-      const reservedSpaceDiv = document.createElement('div')
-      reservedSpaceDiv.classList.add('reserved-space')
-      reservedSpaceDiv.dataset.key = space.id
-
-      const spaceNumber = document.createElement('h1')
-      spaceNumber.textContent = `Vaga ${space.spaceNumber}`
-
-      const plate = document.createElement('p')
-      plate.textContent = `${space.plate}`
-
-      const aptBlock = document.createElement('p')
-      aptBlock.textContent = `Bloco ${space.aptBlock}`
-
-      const aptNumber = document.createElement('p')
-      aptNumber.textContent = `Apt. ${space.aptNumber}`
-
-      reservedSpaceDiv.appendChild(spaceNumber)
-      reservedSpaceDiv.appendChild(plate)
-      reservedSpaceDiv.appendChild(aptBlock)
-      reservedSpaceDiv.appendChild(aptNumber)
-
-      const deleteBtn = document.createElement('span')
-      deleteBtn.classList.add('material-icons')
-      deleteBtn.textContent = 'delete'
-      deleteBtn.dataset.key = space.id
-
-      deleteBtn.addEventListener('click', () => {
-        deleteData(reservedSpacesContainer, deleteBtn.dataset.key, 'space')
+        }
       })
-
-      const editBtn = document.createElement('span')
-      editBtn.classList.add('material-icons')
-      editBtn.textContent = 'edit'
-
-      editBtn.addEventListener('click', () => {
-        editData(reservedSpacesContainer, space.id, 'space')
-      })
-
-      reservedSpaceDiv.appendChild(deleteBtn)
-      reservedSpaceDiv.appendChild(editBtn)
-
-      reservedSpacesContainer.appendChild(reservedSpaceDiv)
-    })
-  }
-
-  const vehiclesContainer = document.querySelector('.vehicles-container')
-
-  if (vehicles) {
+    }
+    
+  
+    if (vehicles) {
+      const vehiclesContainer = document.querySelector('.vehicles-container')
+      
     vehicles.forEach((vehicle) => {
       const vehicleDiv = document.createElement('div')
       vehicleDiv.classList.add('vehicle')
       vehicleDiv.dataset.key = vehicle.id
 
       const plateH2 = document.createElement('h2')
-      plateH2.textContent = vehicle.plate
+      plateH2.textContent = vehicle.placa
 
       const ownerP = document.createElement('p')
-      ownerP.textContent = vehicle.owner
+      ownerP.textContent = vehicle.dono
 
       const modelP = document.createElement('p')
-      modelP.textContent = vehicle.model
+      modelP.textContent = vehicle.modelo
 
       const colorP = document.createElement('p')
-      colorP.textContent = vehicle.color
+      colorP.textContent = vehicle.cor
 
       vehicleDiv.appendChild(plateH2)
       vehicleDiv.appendChild(ownerP)
@@ -291,7 +326,7 @@ function loadInfo() {
       editBtn.textContent = 'edit'
 
       editBtn.addEventListener('click', () => {
-        editData(null, vehicle.id, 'vehicle')
+        editData(vehicle.id, 'vehicle')
       })
 
       vehicleDiv.appendChild(deleteBtn)
@@ -312,8 +347,8 @@ function loadFormData() {
   } else {
     vehicles.forEach(vehicle => {
       const option = document.createElement('option')
-      option.text = vehicle.plate
-      option.value = vehicle.plate
+      option.text = vehicle.placa
+      option.value = vehicle.placa
 
       licensePlateSelect.appendChild(option)
     })
@@ -382,27 +417,20 @@ function registerVehicle() {
   if (!plate.value || !owner.value || !model.value || !color.value) {
     alert('Preencha todos os campos.')
   } else {
-    const id = crypto.randomUUID()
-
     const vehicle = {
-      id: id,
-      plate: plate.value.toUpperCase(),
-      owner: owner.value,
-      model: model.value,
-      color: color.value
+      placa: plate.value.toUpperCase(),
+      dono: owner.value,
+      modelo: model.value,
+      cor: color.value
     }
 
-    if (vehicles) {
-      vehicles.push(vehicle)
-
-      localStorage.setItem('vehicles', JSON.stringify(vehicles))
-    } else {
-      const vehicles = []
-
-      vehicles.push(vehicle)
-
-      localStorage.setItem('vehicles', JSON.stringify(vehicles))
-    }
+    fetch('http://localhost:3333/vehicles', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(vehicle)
+    })
 
     window.location.reload()
   }
