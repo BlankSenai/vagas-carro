@@ -63,6 +63,26 @@ body {
 	font-weight: normal;
 }
 
+.signup-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.form-spacer-container {
+	width: 80%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.form-spacer {
+	display: flex;
+	flex-direction: column;
+}
+
 .options-container {
 	margin-top: 100px;
 	display: flex;

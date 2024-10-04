@@ -1,5 +1,27 @@
 const apiURL = 'http://localhost:3333'
 
+const isLogged = JSON.parse(localStorage.getItem('isLogged'))
+if (isLogged === null || isLogged === undefined) {
+  isLogged = false
+  localStorage.setItem('isLogged', JSON.stringify(isLogged))
+}
+
+function redirect() {
+  const isLogged = JSON.parse(localStorage.getItem('isLogged'))
+
+  if (!isLogged) {
+    window.location.replace('login.html')
+  }
+}
+
+function login() {
+  
+}
+
+function signup() {
+
+}
+
 async function getVehicles() {
   const response = await fetch(`${apiURL}/vehicles`, {
     method: 'GET',
