@@ -99,6 +99,7 @@ body {
 	color: #fff;
 	font-size: 18px;
 	transition: 0.2s;
+	cursor: pointer;
 }
 
 .option:hover {

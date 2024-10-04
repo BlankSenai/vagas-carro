@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-<body onload="loadInfo()">
+<body onload="loadInfo(); redirect()">
 	<nav class="navbar">
 		<div class="title-container">
 			<h1>Condomínio das Flores</h1>
@@ -26,6 +26,8 @@
 			<a class="option" href="vaga.html">Reservar Vaga</a>
 
 			<a class="option" href="veiculo.html">Cadastrar Veículo</a>
+
+			<a class="option" onclick="logout()">Sair</a>
 		</div>
 	</nav>
 

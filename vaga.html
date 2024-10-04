@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="styles.css">
 </head>
 
-<body onload="loadFormData()">
+<body onload="loadFormData(); redirect()">
 	<nav class="navbar">
 		<div class="title-container">
 			<h1>Condomínio das Flores</h1>
@@ -25,6 +25,8 @@
 			<a class="option selected" href="vaga.html">Reservar Vaga</a>
 
 			<a class="option" href="veiculo.html">Cadastrar Veículo</a>
+
+			<a class="option" onclick="logout()">Sair</a>
 		</div>
 	</nav>
 

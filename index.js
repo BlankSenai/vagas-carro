@@ -2,8 +2,13 @@ const apiURL = 'http://localhost:3333'
 
 const isLogged = JSON.parse(localStorage.getItem('isLogged'))
 if (isLogged === null || isLogged === undefined) {
-  isLogged = false
+  const isLogged = false
   localStorage.setItem('isLogged', JSON.stringify(isLogged))
+}
+
+function logout() {
+  localStorage.setItem('isLogged', JSON.stringify(false))
+  window.location.replace('login.html')
 }
 
 function redirect() {
@@ -15,11 +20,64 @@ function redirect() {
 }
 
 function login() {
+  const email = document.querySelector('#loginEmailInput')
+  const password = document.querySelector('#loginPasswordInput')
   
+  if (!email.value || !password.value) {
+    alert('Preencha todos os campos.')
+  } else {
+    const userLogin = {
+      email: email.value,
+      senha: password.value
+    }
+
+    fetch(`${apiURL}/login`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(userLogin)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (!data) {
+        alert('Credenciais inválidas!')
+      } else {
+        localStorage.setItem('isLogged', JSON.stringify(true))
+        window.location.replace('index.html')
+      }
+    })
+  }
 }
 
-function signup() {
+function signUp() {
+  const name = document.querySelector('#nameInput')
+  const lastName = document.querySelector('#lastNameInput')
+  const date = document.querySelector('#dateInput')
+  const email = document.querySelector('#signupEmailInput')
+  const password = document.querySelector('#signupPasswordInput')
 
+  if (!name.value || !lastName.value || !date.value || !email.value || !password.value) {
+    alert('Preencha todos os campos.')
+  } else {
+    const userSignUp = {
+      nome: name.value,
+      sobrenome: lastName.value,
+      data: date.value,
+      email: email.value,
+      senha: password.value
+    }
+
+    fetch(`${apiURL}/cadastrar`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(userSignUp)
+    })
+
+    window.location.replace('login.html')
+  }
 }
 
 async function getVehicles() {
@@ -297,11 +355,14 @@ function loadFormData() {
   getSpaces().then(spaces => {
     spaces.forEach((space) => {
       const spaceNumberSelect = document.querySelector('#spaceNumberSelect')
-      const option = document.createElement('option')
-      option.text = space.numeroVaga
-      option.value = space.numeroVaga
-  
-      spaceNumberSelect.appendChild(option)
+
+      if (space.status === 'Livre') {
+        const option = document.createElement('option')
+        option.text = space.numeroVaga
+        option.value = space.numeroVaga
+    
+        spaceNumberSelect.appendChild(option)
+      }
     })
   })
 }
@@ -335,9 +396,11 @@ function reserveSpace() {
         },
         body: JSON.stringify(updatedSpace)
       })
+      .then(() => {
+        window.location.reload()
+      })
     })
 
-    window.location.reload()
   }
 }
 
